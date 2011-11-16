@@ -11,7 +11,7 @@
 		63CAEC3514733A4300C0FF4A /* http.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CAEC3314733A4300C0FF4A /* http.h */; };
 		63E68BD11473361B002998E8 /* p2plib.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E68BD01473361B002998E8 /* p2plib.c */; };
 		63E68BD3147336B3002998E8 /* socks.c in Sources */ = {isa = PBXBuildFile; fileRef = 63E68BD2147336B3002998E8 /* socks.c */; };
-		63E68BD514733768002998E8 /* socks.h in Headers */ = {isa = PBXBuildFile; fileRef = 63E68BD414733768002998E8 /* socks.h */; };
+		63E68BD514733768002998E8 /* http.c in Headers */ = {isa = PBXBuildFile; fileRef = 63E68BD414733768002998E8 /* http.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +20,7 @@
 		63E68BC8147335DE002998E8 /* libp2plib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libp2plib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		63E68BD01473361B002998E8 /* p2plib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = p2plib.c; path = ../source/p2plib.c; sourceTree = "<group>"; };
 		63E68BD2147336B3002998E8 /* socks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = socks.c; path = ../source/socks.c; sourceTree = "<group>"; };
-		63E68BD414733768002998E8 /* socks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socks.h; path = ../source/socks.h; sourceTree = "<group>"; };
+		63E68BD414733768002998E8 /* http.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = http.c; path = ../source/http.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 			children = (
 				63E68BD01473361B002998E8 /* p2plib.c */,
 				63E68BD2147336B3002998E8 /* socks.c */,
-				63E68BD414733768002998E8 /* socks.h */,
+				63E68BD414733768002998E8 /* http.c */,
 				63CAEC3214733A4300C0FF4A /* http.c */,
 				63CAEC3314733A4300C0FF4A /* http.h */,
 			);
@@ -69,7 +69,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63E68BD514733768002998E8 /* socks.h in Headers */,
+				63E68BD514733768002998E8 /* http.c in Headers */,
 				63CAEC3514733A4300C0FF4A /* http.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
