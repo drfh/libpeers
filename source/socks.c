@@ -7,3 +7,4 @@
 //
 
 #include <stdio.h>
+#include "socks.h"
