@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 
-void node_init(node* n)
+void node_init(node_t* n)
 {
 
 }

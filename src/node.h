@@ -14,15 +14,15 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 
-#include "uuid4.h"
+#include "util/uuid4.h"
 
-struct node_t
+struct node_s
 {
 	uuid_t				node_id;
 	struct sockaddr_un		sock;
 
 };
 
-
+typedef	struct node_s	node_t;
 
 #endif
