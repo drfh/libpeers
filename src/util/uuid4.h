@@ -16,6 +16,8 @@ enum {
   UUID4_EFAILURE = -1
 };
 
+typedef	char*	uuid_t;
+
 int uuid4_generate(char *dst);
 
 #endif
