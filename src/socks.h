@@ -1,10 +1,18 @@
 //
-//  socks.c
-//  p2plib
+//  socks.h
+//  libpeers
 //
 //  Created by David Harris on 11/16/11.
 //  Copyright (c) 2011 MegaApps. All rights reserved.
 //
 
-#include <stdio.h>
-#include "socks.h"
+#ifndef libpeers_socks_h
+#define libpeers_socks_h
+
+
+
+
+
+
+
+#endif
