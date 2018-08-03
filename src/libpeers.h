@@ -11,13 +11,14 @@
 
 #include "global.h"
 
-#include <node.h>
+#include "node.h"
 
-struct
+
+struct p2p_s
 {
-    nodes	*nodes;
+    node_t	*nodes;
 
 };
-
+typedef	struct p2p_s	p2p_ctx;
 
 #endif
