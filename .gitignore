@@ -11,6 +11,7 @@
 *.exe
 *.o
 *.so
+#.a
 
 # Packages #
 ############
@@ -44,6 +45,6 @@ Thumbs.db
 
 # Project specific files #
 ##########################
+build/*
 Makefile.*
 Dockerfile.*
-build/*
