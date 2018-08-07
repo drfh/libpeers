@@ -15,7 +15,14 @@ int main(int argc,char const *argv[])
 	printf("libPeers\n");
 	printf("-----------------\n");
 
+	p2p_ctx		*ctx;
 
+	ctx=p2p_init("0.0.0.0",12300);
+
+	p2p_add_peers(ctx,"localhost:12301");
+
+	printf("Cleanup...\n");
+	p2p_free(ctx);
 	printf("Exiting...\n");
 	return 0;
 }
