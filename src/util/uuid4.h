@@ -8,6 +8,10 @@
 #ifndef UUID4_H
 #define UUID4_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define UUID4_VERSION "0.1.0"
 #define UUID4_LEN 37
 
@@ -19,5 +23,11 @@ enum {
 typedef	char*	uuid_t;
 
 int uuid4_generate(char *dst);
+
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

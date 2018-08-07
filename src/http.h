@@ -9,6 +9,13 @@
 #ifndef libpeers_http_c
 #define libpeers_http_c
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

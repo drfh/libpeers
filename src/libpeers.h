@@ -9,6 +9,10 @@
 #ifndef libpeers_libpeers_h
 #define libpeers_libpeers_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "global.h"
 
 #include "node.h"
@@ -22,5 +26,10 @@ struct p2p_s
 
 };
 typedef	struct p2p_s	p2p_ctx;
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

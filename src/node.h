@@ -9,6 +9,10 @@
 #ifndef libpeers_node_h
 #define libpeers_node_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "socks.h"
 
 #include <stdio.h>
@@ -28,5 +32,10 @@ struct node_s
 };
 
 typedef	struct node_s	node_t;
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

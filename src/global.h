@@ -10,6 +10,10 @@
 #ifndef libpeers_global_h
 #define libpeers_global_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define		kKB(x)		(x*1024)
 #define		kMB(x)		(x*kKB(1000))
 #define		kGB(x)		(x*kMB(1000))
@@ -19,5 +23,8 @@
 
 
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -9,6 +9,10 @@
 #ifndef libpeers_socks_h
 #define libpeers_socks_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #include <sys/types.h>
@@ -41,5 +45,9 @@ void sock_send(sock_t *s,char* buff,long len);
 void sock_receive(sock_t *s,char* buff,long *size);
 
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
