@@ -13,10 +13,13 @@
 #include <stdlib.h>
 
 
-void p2p_init(p2p_ctx **ctx)
+p2p_ctx* p2p_init(char* ip_bind,uint32_t port)
 {
-	ctx=malloc(sizeof(p2p_ctx));
+	p2p_ctx		*ctx=malloc(sizeof(p2p_ctx));
 
+	if(ctx!=NULL)
+		ctx->nodes=arraylist_new(20);
+	return ctx;
 }
 
 void p2p_free(p2p_ctx *ctx)
@@ -25,7 +28,7 @@ void p2p_free(p2p_ctx *ctx)
 	{
 		if(ctx->nodes!=NULL)
 		{
-			free(ctx->nodes);
+			arraylist_free(ctx->nodes);
 		}
 		free(ctx);
 	}
