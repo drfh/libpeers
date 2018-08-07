@@ -11,6 +11,14 @@ DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
+CFLAGS ?= $(INC_FLAGS) -Wall -fPIC -g
+FLAGS ?= -std=c11 -Iinclude
+LDFLAGS ?= -shared
+
+#	Addind JSON support
+CFLAGS += $(shell pkg-config --cflags json-c)
+LDFLAGS += $(shell pkg-config --libs json-c)
+
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
 # c source
