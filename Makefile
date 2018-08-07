@@ -2,6 +2,7 @@ TARGET_EXEC ?= testpeers
 TARGET_LIB ?= libpeers.a
 
 BUILD_DIR ?= ./build
+TEST_DIR ?= $(BUILD_DIR)/tests
 SRC_DIRS ?= ./src
 
 MKDIR_P ?= mkdir -p
@@ -35,6 +36,12 @@ libpeers.o:
 
 libpeers: libpeers.o node.o http.o sockets.o uuid4.o
 	ar rcs libpeers.a libpeers.o node.o http.o sockets.o uuid4.o
+tests: test1
+
+test1: libpeers.a
+	$(MKDIR_P) $(TEST_DIR)
+	$(CC) -I ./src/ -c tests/test1.c -o $(TEST_DIR)/test1.o
+	$(CC) -o $(TEST_DIR)/test1 $(TEST_DIR)/test1.o build/libpeers.a
 
 
 .PHONY: clean
