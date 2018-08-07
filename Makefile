@@ -36,20 +36,25 @@ libpeers: libpeers.a libpeers.so
 
 libpeers.a:
 	$(MKDIR_P) $(BUILD_DIR)
+	$(MKDIR_P) $(BUILD_DIR)/util
+	$(CC) $(CFLAGS) -c src/util/uuid4.c -o build/util/uuid4.o
+	$(CC) $(CFLAGS) -c src/util/arraylist.c -o build/util/arraylist.o
 	$(CC) $(CFLAGS) -c src/http.c -o build/http.o
-	$(CC) $(CFLAGS) -c src/util/uuid4.c -o build/uuid4.o
 	$(CC) $(CFLAGS) -c src/socks.c -o build/socks.o
 	$(CC) $(CFLAGS) -c src/node.c -o build/node.o
 
 	$(CC) $(CFLAGS) -c src/libpeers.c -o build/libpeers.o
 
-	ar rs $(BUILD_DIR)/libpeers.a $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/uuid4.o
+	ar rs $(BUILD_DIR)/libpeers.a $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o $(BUILD_DIR)/util/arraylist.o
 
 
 libpeers.so:
-	gcc -shared -o libpeers.so $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/uuid4.o
+	gcc -shared -o libpeers.so $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o
 
 
+#libpeers.a: libpeers.o node.o http.o sockets.o uuid4.o
+#	mkdir $(BUILD_DIR)/
+#	ar rcs $(BUILD_DIR)/libpeers.a $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/http.o $(BUILD_DIR)/sockets.o $(BUILD_DIR)/uuid4.o
 
 tests: test1
 
