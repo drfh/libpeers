@@ -4,6 +4,9 @@ TARGET_LIB ?= libpeers.a
 BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src
 
+MKDIR_P ?= mkdir -p
+CC ?= gcc
+
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -o -name *.c -or -name *.s)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
