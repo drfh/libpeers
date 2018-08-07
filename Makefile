@@ -37,3 +37,4 @@ libpeers: libpeers.o node.o http.o sockets.o uuid4.o
 .PHONY: clean
 clean:
 	rm -f libpeers *.o *.a *.gch
+	rm -rf build/
