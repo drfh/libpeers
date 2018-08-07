@@ -35,6 +35,9 @@ struct node_s
 typedef	struct node_s	node_t;
 
 
+node_t* node_init_(char* address);
+
+
 #ifdef __cplusplus
 }
 #endif

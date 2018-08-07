@@ -10,8 +10,25 @@
 #include "node.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
-void node_init(node_t* n)
+node_t* node_init(void)
 {
+	node_t	*n;
 
+	n=malloc(sizeof(node_t));
+	n->status=0;
+//	n->s=sock_init();
+
+	return n;
+}
+
+node_t* node_init_address(char* address)
+{
+	return NULL;
+}
+
+node_t* node_init_sockaddr(node_t *n,struct sockaddr *addr)
+{
+	return NULL;
 }
