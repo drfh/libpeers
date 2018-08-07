@@ -26,9 +26,10 @@ extern "C" {
 
 struct node_s
 {
-	uuid_t				node_id;
-	struct sockaddr_un		sock;
+	uuid_t		node_id;
+	sock_t		*s;
 
+	long		status;
 };
 
 typedef	struct node_s	node_t;
