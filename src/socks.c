@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "socks.h"
 
@@ -40,7 +41,7 @@ void sock_free(sock_t *s)
 	free(s);
 }
 
-void sock_setaddress(char* address)
+void sock_setaddress(sock_t *s,char* address)
 {
 	;
 }

@@ -31,11 +31,36 @@ struct sock_s
 
 typedef	struct sock_s	sock_t;
 
-
+/**
+ * Allocate and initialize a sock_t* pointer.
+ *
+ * @return		A new arraylist, or NULL if it was not possible
+ *
+ * @see sock_init
+ */
 sock_t*	sock_init(void);
+
+
+/**
+ * Disconnect the socket from it's remote connection and frees the memory.
+ *
+ * @param s		sock_t* of a sock that was created by sock_init
+ *				.
+ * @see sock_free
+ */
 void sock_free(sock_t *s);
 
-void sock_setaddress(char* address);
+
+/**
+ * Disconnect the socket from it's remote connection and frees the memory.
+ *
+ * @param s			Non-NULL sock_t*
+ * @param address	String address of the remote host to connect to.
+ *					Can accept ip, and dns host names.
+ *					Can have a :port_number at the end if the string.
+ * @see sock_setaddress
+ */
+void sock_setaddress(sock_t *s,char* address);
 
 void sock_connect(sock_t *s);
 void sock_disconnect(sock_t *s);
