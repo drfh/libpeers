@@ -13,10 +13,12 @@
 
 #include "node.h"
 
+#include <stdint.h>
 
 struct p2p_s
 {
-    node_t	*nodes;
+    node_t		*nodes;
+	uint32_t	port;
 
 };
 typedef	struct p2p_s	p2p_ctx;
