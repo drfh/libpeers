@@ -57,12 +57,17 @@ libpeers.so:
 #	ar rcs $(BUILD_DIR)/libpeers.a $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/http.o $(BUILD_DIR)/sockets.o $(BUILD_DIR)/uuid4.o
 
 tests: test1
+tests: test1 test2
 
 test1: libpeers.a
 	$(MKDIR_P) $(TEST_DIR)
 	$(CC) -I ./src/ -c tests/test1.c -o $(TEST_DIR)/test1.o
 	$(CC) -o $(TEST_DIR)/test1 $(TEST_DIR)/test1.o build/libpeers.a
 
+test2: libpeers.a libpeers.so
+	$(MKDIR_P) $(TEST_DIR)
+	$(CC) $(CFLAGS) $(LDFLAGS) -I ./src/ -I ./src/util -c ./tests/test2.c -o $(TEST_DIR)/test2.o
+	$(CC) $(CFLAGS) -pthread -o $(TEST_DIR)/test2 $(TEST_DIR)/test2.o $(CORE_FILES)
 
 .PHONY: clean
 clean:
