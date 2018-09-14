@@ -33,12 +33,16 @@ typedef	struct sock_s	sock_t;
 
 /**
  * Allocate and initialize a sock_t* pointer.
- *
- * @return		A new arraylist, or NULL if it was not possible
+ * @param domain	(default: AF_INET)
+ * @param type		(default: SOCK_DGRAM)
+ * @param protocol	(default: 0)
+ * @return			A new arraylist, or NULL if it was not possible
  *
  * @see sock_init
  */
-sock_t*	sock_init(void);
+sock_t*	sock_init(int domain,int type,int protocol);
+
+sock_t*	sock_init_udp(void);
 
 
 /**
@@ -52,7 +56,20 @@ void sock_free(sock_t *s);
 
 
 /**
- * Disconnect the socket from it's remote connection and frees the memory.
+ * Sets the socket record to the address and port.
+ *
+ * @param s			Non-NULL sock_t*
+ * @param port		port of the socket
+ * @param addr		IP address of the socket to open.
+ *					Can have a :port_number at the end if the string.
+ * @see sock_setaddress
+ */
+void sock_setaddress_var(sock_t *s,int port,uint32_t addr);
+
+
+/**
+ * Sets the socket record to the address and port.
+ * Note: calls sock_setaddress_var(sock_t,uint16_t,char*)
  *
  * @param s			Non-NULL sock_t*
  * @param address	String address of the remote host to connect to.
@@ -61,14 +78,21 @@ void sock_free(sock_t *s);
  * @see sock_setaddress
  */
 void sock_setaddress(sock_t *s,char* address);
+void sock_setopt(sock_t *s,int level,int opt_name,void* optval,socklen_t option_len);
 
 void sock_connect(sock_t *s);
 void sock_disconnect(sock_t *s);
+
+void sock_bind(sock_t *s);
+
+sock_t* sock_accept(sock_t *s);
+
 
 void sock_send(sock_t *s,char* buff,long len);
 
 void sock_receive(sock_t *s,char* buff,long *size);
 
+char* sock_getaddress(sock_t *s);
 
 
 #ifdef __cplusplus
