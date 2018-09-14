@@ -13,6 +13,11 @@
 
 #include <libpeers.h>
 
+#include <errno.h>
+
+#include <pthread.h>
+#include <sched.h>
+#include <unistd.h>
 
 /** Defines **/
 #define kDEFAULT_PORT		8321
@@ -56,7 +61,8 @@ int main(int argc,char const **argv)
 
 	/* Register new handler for messages	*/
 	p2p_reg_message_handle(ctx,handle_message);
-
+//	p2p_details_get_address(ctx,tmp_str1);
+//	p2p_details_get_port(ctx,);
 
 	tmp_str1=sock_getaddress(ctx->s);
 	printf("Create p2p_ctx@ %p on %s with port: %d\n",&ctx,tmp_str1,g.port);
@@ -71,12 +77,14 @@ int main(int argc,char const **argv)
 	/*	Start the server thread	*/
 	p2p_start(ctx);
 
-	char	command_str[256];
-	char	*args;
+	char	*command_str=malloc(512);
 	do
 	{
+		if(sched_yield())
+			fprintf(stderr,"sched_yield returned non -1: errno=%d\n",errno);
+		bzero(command_str,512);
 		printf("Command: ");
-		fscanf(stdin,"%s",command_str);
+		scanf("%s",command_str);
 		if(strcmp(command_str,"quit")==0||strcmp(command_str,"q")==0)
 		{
 			g.done=true;
@@ -85,6 +93,8 @@ int main(int argc,char const **argv)
 		{
 			printf("- send something\n");
 		}
+	//	sleep(1);
+		printf("\n");
 	}while(g.done==false);
 
 	printf("Cleanup...\n");
@@ -95,12 +105,12 @@ int main(int argc,char const **argv)
 
 void parse_args(int argc,char const *argv[])
 {
-	int c;
-	int digit_optind = 0;
+	int		c;
+//	int		digit_optind = 0;
+//	int		this_option_optind = optind ? optind : 1;
+	int		option_index = 0;
 
-	int this_option_optind = optind ? optind : 1;
-	int option_index = 0;
-	static struct option long_options[] = {
+	static struct option long_options[]={
 		{"deamon", no_argument, 0, 'd'},
 		{"name", required_argument, 0, 0},
 		{"port", required_argument, 0, 'p'},
