@@ -18,6 +18,12 @@ extern "C" {
 #define		kMB(x)		(x*kKB(1000))
 #define		kGB(x)		(x*kMB(1000))
 
+#define		kKB4		(4096)
+#define		kKB8		(8192)
+#define		kKB16		(16384)
+#define		kKB32		(32768)
+
+
 #define		kVersion	"1.0"
 
 
