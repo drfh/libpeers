@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 MegaApps. All rights reserved.
 //
 
-#ifndef libpeers_http_c
-#define libpeers_http_c
+#ifndef libpeers_http_h
+#define libpeers_http_h
 
 #ifdef __cplusplus
 extern "C" {
