@@ -17,6 +17,7 @@ extern "C" {
 
 #include "util/arraylist.h"
 #include "node.h"
+#include "message.h"
 
 #include <stdint.h>
 #include <pthread.h>
@@ -74,6 +75,7 @@ void p2p_start(p2p_ctx *ctx);
 
 
 enum peer_options { kOneTry=0 };
+enum peer_options { kOneTry=0,kTryForever };
 
 /**
  * Adds a peer to the list of peers.
@@ -86,7 +88,12 @@ enum peer_options { kOneTry=0 };
 
 void p2p_add_peers(p2p_ctx *ctx,char* address);
 void p2p_add_peers_op(p2p_ctx *ctx,char* address,int option);
+void p2p_add_peers(p2p_ctx *ctx,const char* address);
+void p2p_add_peers_op(p2p_ctx *ctx,const char* address,int option);
 
+
+void p2p_remove_peer(p2p_ctx *ctx,const char* address);
+void p2p_remove_peer_ptr(p2p_ctx *ctx,peer_t *p);
 
 
 void p2p_reg_message_handle(p2p_ctx *ctx,p2p_message_handle func);

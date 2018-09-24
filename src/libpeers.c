@@ -150,11 +150,13 @@ void p2p_receive_message(sock_t s)
 }
 
 void p2p_add_peers(p2p_ctx *ctx,char* address)
+void p2p_add_peers(p2p_ctx *ctx,const char* address)
 {
 	p2p_add_peers_op(ctx,address,kOneTry);
 }
 
 void p2p_add_peers_op(p2p_ctx *ctx,char* address,int option)
+void p2p_add_peers_op(p2p_ctx *ctx,const char* address,int option)
 {
 	;
 }
