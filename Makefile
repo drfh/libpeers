@@ -32,11 +32,11 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-all: libpeers tests
+all: libpeers tests matt
 
 libpeers: libpeers.a libpeers.so
 
-CORE_FILES=$(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o $(BUILD_DIR)/util/arraylist.o
+CORE_FILES=$(BUILD_DIR)/libpeers.o $(BUILD_DIR)/message.o $(BUILD_DIR)/messagequeue.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o $(BUILD_DIR)/util/arraylist.o $(BUILD_DIR)/util/bencode.o
 
 libpeers.a:
 	$(MKDIR_P) $(BUILD_DIR)
@@ -44,7 +44,10 @@ libpeers.a:
 
 	$(CC) $(CFLAGS) $(LDFLAGS) -c src/util/uuid4.c -o build/util/uuid4.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -c src/util/arraylist.c -o build/util/arraylist.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -c src/util/bencode.c -o build/util/bencode.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -c src/http.c -o build/http.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -c src/message.c -o build/message.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -c src/messagequeue.c -o build/messagequeue.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -c src/socks.c -o build/socks.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -c src/node.c -o build/node.o
 
@@ -53,12 +56,17 @@ libpeers.a:
 
 
 libpeers.so:
-	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o libpeers.so $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o $(BUILD_DIR)/util/arraylist.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o libpeers.so $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/messagequeue.o $(BUILD_DIR)/message.o $(BUILD_DIR)/bencode.o $(BUILD_DIR)/node.o $(BUILD_DIR)/socks.o $(BUILD_DIR)/util/uuid4.o $(BUILD_DIR)/util/arraylist.o
 
 
 #libpeers.a: libpeers.o node.o http.o sockets.o uuid4.o
 #	mkdir $(BUILD_DIR)/
 #	ar rcs $(BUILD_DIR)/libpeers.a $(BUILD_DIR)/libpeers.o $(BUILD_DIR)/node.o $(BUILD_DIR)/http.o $(BUILD_DIR)/sockets.o $(BUILD_DIR)/uuid4.o
+
+matt: libpeers.a libpeers.so
+	$(MKDIR_P) $(TEST_DIR)
+	$(CC) $(CFLAGS) $(LDFLAGS) -I ./src/ -I ./src/util -c ./tests/matt.c -o $(TEST_DIR)/matt.o
+	$(CC) $(CFLAGS) -pthread -o $(TEST_DIR)/matt $(TEST_DIR)/matt.o $(CORE_FILES)
 
 tests: test1 test2
 
@@ -72,6 +80,7 @@ test2: libpeers.a libpeers.so
 	$(MKDIR_P) $(TEST_DIR)
 	$(CC) $(CFLAGS) $(LDFLAGS) -I ./src/ -I ./src/util -c ./tests/test2.c -o $(TEST_DIR)/test2.o
 	$(CC) $(CFLAGS) -pthread -o $(TEST_DIR)/test2 $(TEST_DIR)/test2.o $(CORE_FILES)
+
 
 .PHONY: clean
 clean:
