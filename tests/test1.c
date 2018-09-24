@@ -21,16 +21,16 @@
 
 /** Defines **/
 #define kDEFAULT_PORT		8321
-#define	kNUM_PEER_TEST		0
+#define	kNUM_PEER_TEST		10
 
 /** Prototypes **/
 void parse_args(int argc,char const *argv[]);
-void handle_message(p2p_ctx* ctx,char* m,node_t* n);
+void handle_message(p2p_ctx* ctx,message_t* m,node_t* n);
 
 struct global{
 	bool	done;
 	short	port;
-
+	int		verbose;
 };
 struct	global		g;
 
@@ -38,6 +38,7 @@ void init_globals(void)
 {
 	g.done=false;
 	g.port=8321;
+	g.verbose=1;
 }
 
 int main(int argc,char const **argv)
@@ -68,9 +69,9 @@ int main(int argc,char const **argv)
 	printf("Create p2p_ctx@ %p on %s with port: %d\n",&ctx,tmp_str1,g.port);
 
 	/* Manualy add peers to try to cennect to	*/
-	for(i=1;i<j;i++)
+	for(i=0;i<j;i++)
 	{
-		sprintf(address,"localhost:%d",i+kDEFAULT_PORT);
+		sprintf(address,"localhost:%d",kDEFAULT_PORT+i);
 		p2p_add_peers(ctx,address);
 	}
 
@@ -155,10 +156,10 @@ void parse_args(int argc,char const *argv[])
 */
 }
 
-void handle_message(p2p_ctx* ctx,char* m,node_t* n)
+void handle_message(p2p_ctx* ctx,message_t* m,node_t* n)
 {
 	if(ctx!=NULL)
-		printf("%s:(msg) %s\n",__FUNCTION__,m);
+		printf("%s:(msg) %s\n",__FUNCTION__,m->buff);
 	else
 		printf("%s: ctx == NULL\n",__FUNCTION__);
 }
