@@ -88,9 +88,10 @@ void sock_bind(sock_t *s);
 sock_t* sock_accept(sock_t *s);
 
 
-void sock_send(sock_t *s,char* buff,long len);
+void sock_send(sock_t *s,char* buff,long size_t);
 
-void sock_receive(sock_t *s,char* buff,long *size);
+void sock_receive_packet(sock_t *s,char* buff,size_t *size);
+void sock_receive(sock_t *s,char* buff,size_t *size);
 
 char* sock_getaddress(sock_t *s);
 

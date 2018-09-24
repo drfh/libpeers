@@ -21,6 +21,12 @@
 
 #include "socks.h"
 
+/* Internals (Private) */
+void sock_send_safe(sock_t *s,char* buff,long len);
+
+/* Internals end */
+
+
 /*
 sock_t*	sock_new(int domain,int type,int protocol)
 {
@@ -143,7 +149,7 @@ sock_t* sock_accept(sock_t *s)
 	int				err=0;
 	socklen_t		addrlen=sizeof(struct sockaddr_in);
 	struct sockaddr_in	fromAddr;
-	sock_t*			peer=NULL;
+	sock_t*			sock=NULL;
 	char		*buff;
 	short		buff_size=0;
 
@@ -155,9 +161,9 @@ sock_t* sock_accept(sock_t *s)
 	{
 		buff_size=err;
 		printf("packet(%s:%d): %p %d\n",inet_ntoa(fromAddr.sin_addr),ntohs(fromAddr.sin_port),buff,addrlen);
-		peer=sock_init_udp();
-		peer->addr=fromAddr;
-		peer->port=fromAddr.sin_port;
+		sock=sock_init_udp();
+		sock->addr=fromAddr;
+		sock->port=fromAddr.sin_port;
 
 		printf("message: %s\n",buff);
 	}
@@ -167,24 +173,44 @@ sock_t* sock_accept(sock_t *s)
 	}
 	else
 		printf("%s(%d): Error was 0\n",__FUNCTION__,__LINE__);
-	return peer;
+	return sock;
 }
 
 void sock_send(sock_t *s,char* buff,long len)
 {
-	;
+	if(s!=NULL)
+		if(len>0)
+			if(buff!=NULL)
+				sock_send_safe(s,buff,len);
+			else
+				printf("%s(%d) buffer pointer was NULL\n",__FUNCTION__,__LINE__);
+		else
+			printf("%s(%d) length %ld is not an option\n",__FUNCTION__,__LINE__,len);
+	else
+		printf("%s(%d) sock pointer was NULL\n",__FUNCTION__,__LINE__);
 }
 
+/* Internal */
+void sock_send_safe(sock_t *s,char* buff,long len)
+{
+	ssize_t		count=0;
 
+	count=send(s->sock,(void*)buff,(size_t)len,0);
+	if(count==0)
+	{
+		assert(count==0);
+	}
 
-void sock_receive_mesage(sock_t *s,char* buff,long *size)
+}
+
+void sock_receive_packet(sock_t *s,char* buff,size_t *size)
 {
 	;
 }
 
 
 
-void sock_receive(sock_t *s,char* buff,long *size)
+void sock_receive(sock_t *s,char* buff,size_t *size)
 {
 	int				err=0;
 	socklen_t		addrlen=sizeof(struct sockaddr_in);
@@ -227,6 +253,6 @@ char* sock_getaddress(sock_t *s)
 		strcpy(str_copy,inet_ntoa(s->addr.sin_addr));
 	//	s->addr.sin_addr.s_addr;
 	}
-	printf("address ----- %s\n",str_copy);
+//	printf("address  %s\n",str_copy);
 	return str_copy;
 }

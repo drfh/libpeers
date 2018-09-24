@@ -13,10 +13,9 @@
 extern "C" {
 #endif
 
-#include "global.h"
-
 #include "util/arraylist.h"
 #include "node.h"
+#include "messagequeue.h"
 #include "message.h"
 
 #include <stdint.h>
@@ -25,7 +24,15 @@ extern "C" {
 
 typedef	struct p2p_s	p2p_ctx;
 
-typedef void (*p2p_message_handle)(p2p_ctx* ctx,char* m,node_t* n);
+typedef void (*p2p_message_handle)(p2p_ctx* ctx,message_t* m,node_t* n);
+
+struct peer_s
+{
+	int				status;
+	int				retries;
+	struct sockaddr_in	addr;
+};
+typedef	struct peer_s	peer_t;
 
 struct p2p_s
 {
@@ -33,6 +40,7 @@ struct p2p_s
 	ArrayList	*peers;
 	uint32_t	port;
 	sock_t		*s;
+	messagequeue_t	*mq;
 
 	long		packet_size;
 
@@ -74,7 +82,6 @@ void p2p_start(p2p_ctx *ctx);
 
 
 
-enum peer_options { kOneTry=0 };
 enum peer_options { kOneTry=0,kTryForever };
 
 /**
@@ -86,8 +93,6 @@ enum peer_options { kOneTry=0,kTryForever };
  * @see p2p_add_peers
  */
 
-void p2p_add_peers(p2p_ctx *ctx,char* address);
-void p2p_add_peers_op(p2p_ctx *ctx,char* address,int option);
 void p2p_add_peers(p2p_ctx *ctx,const char* address);
 void p2p_add_peers_op(p2p_ctx *ctx,const char* address,int option);
 
@@ -121,6 +126,27 @@ char* p2p_get_stat(p2p_ctx *ctx,char* stat_str);
  * @see p2p_details_get_address
  */
 void p2p_details_get_address(p2p_ctx *ctx,char* return_string);
+
+
+/**
+ * Subscribe to messages that you want to respond to.
+ * @param ctx		Context record of the p2p server that is to be operated on.
+ * @param topic		Topic to respond to.
+ *
+ * @see p2p_message_subscribe
+ */
+void p2p_message_subscribe(p2p_ctx *ctx,char* topic);
+void p2p_message_unsubscribe(p2p_ctx *ctx,char* topic);
+
+/**
+ * Publish a message to the cluster.
+ * @param ctx		Context record of the p2p server that is to be operated on.
+ * @param topic		Topic to respond to.
+ *
+ * @see p2p_message_subscribe
+ */
+void p2p_message_publish(p2p_ctx *ctx,char* topic,char* message);
+
 
 #ifdef __cplusplus
 }
