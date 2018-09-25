@@ -164,7 +164,7 @@ void parse_args(int argc,char const *argv[])
 void handle_message(p2p_ctx* ctx,message_t *m,node_t* n)
 {
 	if(ctx!=NULL)
-		printf("%s:(msg) %s\n",__FUNCTION__,m);
+		printf("%s:(msg) %s\n",__FUNCTION__,m->buff);
 	else
 		printf("%s: ctx == NULL\n",__FUNCTION__);
 }
