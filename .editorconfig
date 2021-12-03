@@ -1,0 +1,15 @@
+root = true
+[*]
+max_line_length=300
+indent_style = tab
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+#end_of_line = lf
+
+[Makefile]
+indent_style = tab
+
+[*.md]
+trim_trailing_whitespace = false

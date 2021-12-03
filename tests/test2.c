@@ -15,7 +15,7 @@
 
 
 #include <libpeers.h>
-
+#include <message.h>
 
 /** Defines **/
 #define kDEFAULT_PORT		8321
