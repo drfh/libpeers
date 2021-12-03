@@ -1,0 +1,6 @@
+[wrap-git]
+url = https://github.com/drfh/cutil.git
+revision = head
+
+[provides]
+libcutil = cutils_dep
